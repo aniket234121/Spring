@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ALL Beans -->
+<!--    setter injection-->
+    <bean class="springCore.Beans.Student" name="student3">
+        <property name="id"><value>3</value></property>
+        <property name="name"><value>trallaliyo trallala</value></property>
+        <property name="age"><value>13</value></property>
+    </bean>
+
+<!--    constructor injection-->
+    <bean class="springCore.Beans.Student" name="student4">
+        <constructor-arg name="id" value="6"></constructor-arg>
+        <constructor-arg name="name" value="aniket kumar chauhan"></constructor-arg>
+        <constructor-arg name="age" value="23"></constructor-arg>
+    </bean>
+
+</beans>
