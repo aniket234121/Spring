@@ -176,3 +176,225 @@ with Dependency injection
 | **Constructor Injection** | Dependency is passed in constructor | ✅ Recommended                  |
 | **Setter Injection**      | Dependency is set via setter method | ✔️ Optional                    |
 | **Field Injection**       | Spring directly sets the field      | ⚠️ Not recommended for testing |
+
+## Bean
+
+A Spring Bean is an object whose creation, configuration, dependency injection, lifecycle, and scope are managed by the Spring IoC Container.
+
+In normal Java, we create objects ourselves:
+
+    PaymentService service = new PaymentService();
+
+With Spring, the container creates and manages the object:
+
+    PaymentService service = context.getBean(PaymentService.class);
+
+When an object becomes a Spring Bean, Spring can manage several aspects of that object:
+
+    Spring Bean
+    │
+    ├── Object creation
+    ├── Dependency Injection
+    ├── Configuration
+    ├── Scope
+    ├── Initialization
+    ├── Lifecycle callbacks
+    └── Destruction
+[Bean Detailed Notes](../springCore/Beans/Bean.md)
+
+## Autowired
+Autowiring is a Spring Dependency Injection mechanism in which the Spring IoC container automatically identifies and injects the required dependency into a bean
+
+### @Autowired
+@Autowired is a Spring annotation used for dependency injection (DI). It tells the Spring IoC container to automatically find a suitable bean and inject it into the required dependency.
+
+It is primarily resolved by type.
+
+@Autowired can be applied to:
+
+* Constructor
+* Setter method
+* Field
+* General methods
+
+Constructor Injection — Recommended
+
+```java
+@Service
+public class PaymentService {
+
+    private final PaymentProcessor paymentProcessor;
+
+    @Autowired
+    public PaymentService(PaymentProcessor paymentProcessor) {
+        this.paymentProcessor = paymentProcessor;
+    }
+}
+```
+
+If the class has only one constructor, @Autowired can be omitted:
+
+```java
+@Service
+public class PaymentService {
+
+    private final PaymentProcessor paymentProcessor;
+
+    public PaymentService(PaymentProcessor paymentProcessor) {
+        this.paymentProcessor = paymentProcessor;
+    }
+}
+```
+### @Autowired Resolves Dependencies
+
+Suppose:
+
+    public interface PaymentProcessor {
+    void process();
+    }
+
+and:
+
+```java
+@Component
+public class CardPaymentProcessor implements PaymentProcessor {
+}
+@Component
+public class UpiPaymentProcessor implements PaymentProcessor {
+}
+
+```
+There are now two beans of type PaymentProcessor.
+
+If Spring encounters:
+
+```java
+@Autowired
+public PaymentService(PaymentProcessor paymentProcessor) {
+this.paymentProcessor = paymentProcessor;
+}
+
+```
+Spring cannot determine which implementation should be injected.
+
+This results in an ambiguity error such as:
+
+NoUniqueBeanDefinitionException
+
+To resolve multiple candidates, Spring commonly uses:
+
+* @Primary
+* @Qualifier
+* Bean name / other resolution rules
+
+### 3. @Primary
+
+@Primary tells Spring:
+
+"When multiple beans of this type are available, prefer this bean by default."
+
+Example:
+
+```java
+@Component
+@Primary
+public class CardPaymentProcessor implements PaymentProcessor {
+}
+@Component
+public class UpiPaymentProcessor implements PaymentProcessor {
+}
+
+```
+Now:
+
+```java
+@Service
+public class PaymentService {
+
+    private final PaymentProcessor paymentProcessor;
+
+    public PaymentService(PaymentProcessor paymentProcessor) {
+        this.paymentProcessor = paymentProcessor;
+    }
+}
+```
+
+Spring finds two PaymentProcessor beans but chooses:
+
+CardPaymentProcessor
+
+because it is marked @Primary.
+
+### @Qualifier
+
+@Qualifier is used when you want to explicitly specify which bean should be injected.
+
+Example:
+
+```java
+@Component("cardProcessor")
+public class CardPaymentProcessor implements PaymentProcessor {
+}
+@Component("upiProcessor")
+public class UpiPaymentProcessor implements PaymentProcessor {
+}
+
+```
+Then:
+
+```java
+@Service
+public class PaymentService {
+
+    private final PaymentProcessor paymentProcessor;
+
+    public PaymentService(
+            @Qualifier("upiProcessor") PaymentProcessor paymentProcessor) {
+
+        this.paymentProcessor = paymentProcessor;
+    }
+}
+
+```
+Spring injects:
+
+    UpiPaymentProcessor
+
+even if another PaymentProcessor exists.
+
+@Qualifier is more specific than @Primary
+
+For example:
+
+```java
+@Component
+@Primary
+public class CardPaymentProcessor implements PaymentProcessor {
+}
+@Component("upiProcessor")
+public class UpiPaymentProcessor implements PaymentProcessor {
+}
+
+```
+This:
+
+```java
+public PaymentService(
+@Qualifier("upiProcessor") PaymentProcessor processor) {
+}
+
+```
+still injects:
+
+    UpiPaymentProcessor
+
+The explicit qualifier takes precedence over the default @Primary choice.
+### Modes
+
+| Autowire Mode | Description                                                     | Resolution                                 | Usage                              |
+| ------------- | --------------------------------------------------------------- | ------------------------------------------ | ---------------------------------- |
+| `no`          | No automatic dependency injection                               | Dependencies must be configured explicitly | Default                            |
+| `byName`      | Injects dependency by matching **property name** with bean name | By bean name                               | Legacy XML configuration           |
+| `byType`      | Injects dependency based on the **property type**               | By type                                    | Legacy XML configuration           |
+| `constructor` | Injects dependencies through the constructor                    | By constructor argument type               | Legacy XML configuration           |
+| `autodetect`  | Automatically chooses between constructor and `byType`          | Automatic                                  | **Removed/deprecated; do not use** |
