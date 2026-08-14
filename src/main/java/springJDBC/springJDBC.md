@@ -368,7 +368,7 @@ int rows = jdbcTemplate.update(
 
 The returned int represents the number of affected rows.
 
-Generated Keys
+### Generated Keys
 
 If the database generates the primary key, KeyHolder can retrieve it.
 
@@ -390,6 +390,72 @@ jdbcTemplate.update(connection -> {
 
 Long id = keyHolder.getKey().longValue();
 ```
+
+### What are Generated Keys?
+
+Suppose your employees table is:
+
+```java
+CREATE TABLE employees (
+        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+email VARCHAR(100),
+salary DECIMAL(10,2)
+);
+```
+
+When you execute:
+
+    INSERT INTO employees(name, email, salary)
+    VALUES ('Aniket', 'aniket@example.com', 75000);
+
+you don't provide id.
+
+The database generates it automatically:
+
+id = 101
+
+The problem is:
+
+After the INSERT, how does Java get the newly generated 101?
+
+This is where GeneratedKeyHolder is used.
+
+### Why do we need Generated Keys?
+
+A normal jdbcTemplate.update() mainly tells you:
+
+How many rows were affected?
+
+For example:
+
+    int rows = jdbcTemplate.update(...);
+
+Result:
+
+        1
+
+It does not directly give you the generated primary key.
+
+If the database generated:
+
+id = 101
+
+you may need that ID immediately for:
+
+* Returning the created object's ID
+* Inserting related records
+* Creating an order and then inserting order items
+* Maintaining relationships between tables
+* Returning the newly created entity from a service/API
+
+So Spring JDBC provides:
+
+GeneratedKeyHolder
+
+to capture the generated key.
+
+
 ### 2. Read — SELECT
 #### query()
 
