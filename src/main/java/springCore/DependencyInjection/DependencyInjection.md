@@ -1,6 +1,6 @@
 # Dependency Injection
 
-    Dependency Injection
+    Dependency Injection (values that can be injected through constructor or setter)
     │
     ├── 1. Primitive / String-based values
     │      ├── String

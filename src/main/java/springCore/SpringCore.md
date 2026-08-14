@@ -100,6 +100,7 @@ Spring provides two main container interfaces:
 1. BeanFactory [note](./IOCcontainers/BeanFactory.md)
 2. ApplicationContext [ note](./IOCcontainers/ApplicationContext.md)
 
+```
 
     IoC Container
     │
@@ -112,6 +113,7 @@ Spring provides two main container interfaces:
     ├── AnnotationConfigApplicationContext
     └── WebApplicationContext
 
+```
 | Feature | `BeanFactory` | `ApplicationContext` |
 | :--- | :--- | :--- |
 | **Initialization** | **Lazy Loading:** Beans are only created when you explicitly ask for them using `getBean()`. | **Eager Loading:** Singleton beans are created immediately when the application starts up. |
