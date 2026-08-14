@@ -148,15 +148,15 @@ What is connection pooling?
 
 Creating a database connection is relatively expensive because it can involve:
 
-Application
-↓
-Network connection
-↓
-Database authentication
-↓
-Session establishment
-↓
-Connection becomes available
+    Application
+    ↓
+    Network connection
+    ↓
+    Database authentication
+    ↓
+    Session establishment
+    ↓
+    Connection becomes available
 
 Creating a new connection for every database operation is inefficient.
 
