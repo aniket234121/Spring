@@ -180,7 +180,7 @@ with Dependency injection
 | **Field Injection**       | Spring directly sets the field      | ⚠️ Not recommended for testing |
 
 ## Stereotype Annotation 
-[Detailed Notes](./src/main/java/springCore/StereotypeAnnotation.md)
+[Detailed Notes](./StereotypeAnnotation.md)
 
 Stereotype annotations are annotations that identify a Java class as a Spring-managed component and, in some cases, indicate the role of that component within the application architecture.
 
