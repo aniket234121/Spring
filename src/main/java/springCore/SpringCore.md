@@ -177,6 +177,36 @@ with Dependency injection
 | **Setter Injection**      | Dependency is set via setter method | ✔️ Optional                    |
 | **Field Injection**       | Spring directly sets the field      | ⚠️ Not recommended for testing |
 
+## Stereotype Annotation 
+[Detailed Notes]()
+
+Stereotype annotations are annotations that identify a Java class as a Spring-managed component and, in some cases, indicate the role of that component within the application architecture.
+
+They allow Spring to discover classes automatically through component scanning and register them as beans in the IoC container.
+
+    Stereotype Annotation
+    ↓
+    Class identified as Spring component
+    ↓
+    Component Scanning
+    ↓
+    Bean registered in IoC Container
+
+### Main Stereotype Annotation
+
+| Annotation    | Typical Role                     | Layer                  |
+| ------------- | -------------------------------- | ---------------------- |
+| `@Component`  | Generic Spring-managed component | Any/general            |
+| `@Service`    | Business/service logic           | Service layer          |
+| `@Repository` | Data access/persistence          | Repository/DAO layer   |
+| `@Controller` | Handles web requests             | Presentation/Web layer |
+
+There are also specialized web stereotypes such as:
+
+Annotation	Typical Role
+@RestController	REST API controller
+
+
 ## Bean
 
 A Spring Bean is an object whose creation, configuration, dependency injection, lifecycle, and scope are managed by the Spring IoC Container.
