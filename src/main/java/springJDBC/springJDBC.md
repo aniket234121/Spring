@@ -466,9 +466,9 @@ List<Employee> employees = jdbcTemplate.query(
 "SELECT id, name, email, salary FROM employees",
 new EmployeeRowMapper()
 );
-queryForObject()
-```
 
+```
+#### queryForObject()
 Used when exactly one result is expected.
 
 ```java
