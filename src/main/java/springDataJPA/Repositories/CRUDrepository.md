@@ -1,4 +1,4 @@
-# CrudRepository — Professional Notes
+# CrudRepository 
 
 **CrudRepository<T, ID>** is a Spring Data repository interface that provides standard CRUD (Create, Read, Update, Delete) operations for a domain/entity type.
 

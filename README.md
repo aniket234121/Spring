@@ -29,3 +29,6 @@ Spring is a comprehensive, modular Java framework designed to simplify the devel
 
 ## 2. Spring JDBC
 [Spring JDBC](./src/main/java/springJDBC/springJDBC.md)
+
+## 3. Spring Data JPA
+[Spring Data JPA](./src/main/java/springDataJPA/springDataJPA.md)

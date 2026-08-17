@@ -1,5 +1,5 @@
 # Paging And Sorting Repository
-PagingAndSortingRepository<T, ID> is a Spring Data repository interface that provides methods for:
+**PagingAndSortingRepository<T, ID>** is a Spring Data repository interface that provides methods for:
 
 * Retrieving entities in pages
 * Retrieving entities with sorting
