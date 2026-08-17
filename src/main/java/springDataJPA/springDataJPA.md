@@ -89,6 +89,7 @@ CrudRepository traditionally returns Iterable for methods such as:
 It does not provide paging or sorting.
 
 ### 3. ListCrudRepository<T, ID>
+[Detailed notes](../springDataJPA/Repositories/ListCrudRepository.md)
 
 Introduced in Spring Data 3.x.
 
@@ -134,6 +135,7 @@ does not automatically provide CRUD methods
 This separation was introduced in Spring Data 3.
 
 ### 5. ListPagingAndSortingRepository<T, ID>
+[Detailed Notes](../springDataJPA/Repositories/ListPagingAndSortingRepository.md)
 
 Introduced in Spring Data 3.x.
 
@@ -149,6 +151,7 @@ Purpose
 Paging + sorting with List-based results.
 
 ### 6. JpaRepository<T, ID>
+[Detailed Notes](../springDataJPA/Repositories/JpaRepository.md)
 
 This is the most commonly used repository interface in Spring Data JPA applications.
 
